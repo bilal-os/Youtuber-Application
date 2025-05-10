@@ -2,16 +2,20 @@ package com.example.youtuberapplication;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import com.bumptech.glide.Glide;
 
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder> {
 
@@ -40,8 +44,34 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder>
         holder.tvVideoTitle.setText(video.getTitleName());
         holder.tvChannelName.setText(video.getChannelName());
         holder.tvViewsHours.setText(video.getViews() + " • " + video.getHours());
-        holder.ivThumbnail.setImageURI(video.getImageUri());
 
+
+        Glide.with(holder.ivThumbnail.getContext())
+                .load(video.getImageUri().toString()) // Convert Uri back to string for Glide
+                .placeholder(R.drawable.thumbnail) // Optional loading placeholder
+                .error(R.drawable.thumbnail) // Optional error placeholder
+                .into(holder.ivThumbnail);
+
+        holder.itemView.setOnClickListener(v -> {
+
+            String vid = video.getVideoId();
+
+            // Intent to launch in YouTube app
+            Intent appIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("vnd.youtube:" + vid));
+            // Fallback: launch in browser
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://www.youtube.com/watch?v=" + vid));
+
+            PackageManager pm = context.getPackageManager();
+            if (appIntent.resolveActivity(pm) != null) {
+                context.startActivity(appIntent);
+            } else {
+                context.startActivity(webIntent);
+            }
+
+
+        });
     }
 
     @Override

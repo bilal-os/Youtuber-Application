@@ -10,12 +10,15 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     TextView textView ;
@@ -31,7 +34,25 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         splashTextEffect();
+        VideosDataClass app = (VideosDataClass)getApplication();
+        app.setOnVideosLoadedListener(new VideosDataClass.OnVideosLoaded() {
+            @Override
+            public void onLoaded(boolean status) {
+                // videos are ready—now go to HomeActivity
+                startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                finish();
+            }
+            @Override
+            public void onError(Throwable t) {
+                Toast.makeText(
+                        MainActivity.this,
+                        "No internet",
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+        });
         Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(()->{
             Intent intent = new Intent(this,HomeActivity.class);

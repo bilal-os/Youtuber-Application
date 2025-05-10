@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId = "com.example.youtuberapplication"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -32,7 +32,9 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.glide)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

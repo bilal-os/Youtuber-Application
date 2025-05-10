@@ -4,18 +4,23 @@
     import android.net.Uri;
 
     public class Video extends Application {
-        String titleName, channelName, views, hours;
+        String titleName, channelName, views, hours, videoId;
             Uri imageUri;
         // Constructor
-        public Video(String titleName, String channelName, String views, String hours, Uri imageUri) {
+        public Video(String titleName, String channelName, String views, String hours, Uri imageUri, String videoId) {
             this.titleName = titleName;
             this.channelName = channelName;
             this.views = views;
             this.hours = hours;
             this.imageUri = imageUri;
+            this.videoId=videoId;
         }
 
         // Getters
+        public String getVideoId()
+        {
+            return videoId;
+        }
         public String getTitleName() {
             return titleName;
         }
