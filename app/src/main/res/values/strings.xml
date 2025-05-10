@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Youtuber Application</string>
     <string name="an_app_for_youtubers_and_watchers">An App for Youtubers and Watchers</string>
+    <string name="get_paid_earn">GET PAID/EARN</string>
+    <string name="get_monitized">GET MONITIZED</string>
+    <string name="videoTitle">Insert Video Title here to asdsadsadsaadsadsadsad</string>
+    <string name="thumbnail_photo">Thumbnail Photo</string>
+    <string name="channel_name">Channel Name</string>
+    <string name="views_hours">5M Views. 2 Hours Ago</string>
 </resources>

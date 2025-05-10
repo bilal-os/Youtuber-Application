@@ -1,7 +1,11 @@
 package com.example.youtuberapplication;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -27,6 +31,17 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        splashTextEffect();
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(()->{
+            Intent intent = new Intent(this,HomeActivity.class);
+            startActivity(intent);
+            finish();
+        },5000);
+    }
+
+    private void splashTextEffect()
+    {
         textView=findViewById(R.id.tvSplash);
         text = getString(R.string.an_app_for_youtubers_and_watchers);
 
@@ -49,6 +64,5 @@ public class MainActivity extends AppCompatActivity {
         );
 
         textView.setText(spannable);
-
     }
 }
