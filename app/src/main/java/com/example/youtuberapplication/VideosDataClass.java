@@ -8,6 +8,9 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.youtuberapplication.Models.VideoDetailsResponse;
+import com.example.youtuberapplication.Models.YouTubeResponse;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;

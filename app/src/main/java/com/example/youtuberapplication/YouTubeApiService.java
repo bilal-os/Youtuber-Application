@@ -1,5 +1,8 @@
 package com.example.youtuberapplication;
 
+import com.example.youtuberapplication.Models.VideoDetailsResponse;
+import com.example.youtuberapplication.Models.YouTubeResponse;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
