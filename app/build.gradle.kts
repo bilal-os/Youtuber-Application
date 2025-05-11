@@ -32,6 +32,9 @@ android {
 }
 
 dependencies {
+    implementation(libs.credentials)
+    implementation(libs.credentialsPlayServicesAuth)
+    implementation(libs.googleid)
     implementation(libs.glide)
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
@@ -39,6 +42,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
