@@ -84,9 +84,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Provide your youtube channel’s link:"
+                android:text="Add Video Link:"
                 android:textSize="35sp"
-                android:textStyle="normal"
+                android:textStyle="bold"
                 android:layout_marginBottom="16dp" />
 
             <!-- Input -->

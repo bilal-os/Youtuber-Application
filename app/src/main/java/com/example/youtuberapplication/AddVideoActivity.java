@@ -1,5 +1,6 @@
 package com.example.youtuberapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,45 +12,52 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class AddChannelActivity extends AppCompatActivity {
+public class AddVideoActivity extends AppCompatActivity {
 
-    private EditText channelLinkInput;
-    private Button submitChannelLink;
     private ImageButton backButton;
     private ImageView profileIcon;
+    private EditText channelLinkInput;
+    private Button submitChannelLink, moreButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_channel);
+        setContentView(R.layout.activity_add_video);
 
-        channelLinkInput = findViewById(R.id.channelLinkInput);
-        submitChannelLink = findViewById(R.id.submitChannelLink);
+        // === Bind Views ===
         backButton = findViewById(R.id.backButton);
         profileIcon = findViewById(R.id.profileIcon);
+        channelLinkInput = findViewById(R.id.channelLinkInput);
+        submitChannelLink = findViewById(R.id.submitChannelLink);
+        moreButton = findViewById(R.id.moreButton);
 
+        // === Back Button Click ===
+        backButton.setOnClickListener(v -> finish());
+
+        // === Profile Icon Click ===
+        profileIcon.setOnClickListener(v ->
+                Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
+        );
+
+        // === Submit Button Click ===
         submitChannelLink.setOnClickListener(v -> {
             String link = channelLinkInput.getText().toString().trim();
             if (!link.isEmpty()) {
-                Toast.makeText(this, "Submitted: " + link, Toast.LENGTH_SHORT).show();
-                // TODO: Handle link submission logic later
+                Toast.makeText(this, "Video link submitted: " + link, Toast.LENGTH_SHORT).show();
+                // TODO: Handle submission (e.g., save or upload)
             } else {
-                Toast.makeText(this, "Please enter a valid link", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please enter a video link", Toast.LENGTH_SHORT).show();
             }
         });
 
-        backButton.setOnClickListener(v -> finish());
+        // === More Button Click ===
+        moreButton.setOnClickListener(v ->
+                Toast.makeText(this, "More clicked", Toast.LENGTH_SHORT).show()
+        );
 
-        profileIcon.setOnClickListener(v -> {
-            // TODO: Navigate to profile activity (not yet implemented)
-            Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show();
-        });
-
-        /*BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);*/
-
-        // Commented out navigation logic until destination screens are created
-        /*
-        bottomNav.setOnNavigationItemSelectedListener(item -> {
+        /*// === Bottom Navigation ===
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNavigation);
+        bottomNav.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.nav_home:
                     startActivity(new Intent(this, HomeActivity.class));
@@ -65,7 +73,6 @@ public class AddChannelActivity extends AppCompatActivity {
                     return true;
             }
             return false;
-        });
-        */
+        });*/
     }
 }
