@@ -52,96 +52,88 @@
                 android:paddingTop="24dp"
                 android:paddingBottom="88dp" >
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp">
 
-                    <TextView
-                        android:id="@+id/signInTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sign In"
-                        android:textSize="25sp"
-                        android:textStyle="bold"
-                        android:textColor="#000000"
-                        android:layout_alignParentStart="true" />
-
-                    <ImageButton
-                        android:id="@+id/closeButton"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentEnd="true"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/ic_close"
-                        android:contentDescription="Close"
-                        app:tint="#000000" />
-                </RelativeLayout>
-
-
-
-                <!-- Email -->
-                <EditText
-                    android:id="@+id/email"
-                    android:layout_width="match_parent"
-                    android:layout_height="64dp"
-                    android:hint="Email"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/outline_button_background_orange"
-                    android:padding="12dp" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="64dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/outline_button_background_orange">
-
-                    <EditText
-                        android:id="@+id/password"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentStart="true"
-                        android:hint="Password"
-                        android:inputType="textPassword"
-                        android:paddingEnd="48dp"
-                        android:padding="12dp" />
-
-                    <ImageButton
-                        android:id="@+id/togglePasswordVisibility"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="12dp"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/ic_visibility_off"
-                        android:contentDescription="Toggle Password"
-                        app:tint="#888888" />
-                </RelativeLayout>
-
-                <!-- Forgot Password Link -->
                 <TextView
-                    android:id="@+id/forgotPassword"
+                    android:id="@+id/accountDetilsTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Forgot Password?"
-                    android:textSize="18sp"
-                    android:textColor="#FF7C00"
-                    android:layout_marginTop="16dp"
-                    android:layout_gravity="center_horizontal"
-                    android:clickable="true"
-                    android:focusable="true" />
+                    android:text="Account Details"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
+                    android:layout_alignParentStart="true" />
 
-                <!-- Sign Up Button -->
+                <TextView
+                    android:id="@+id/bankTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jazzcash"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFB10B"
+                    android:layout_alignParentStart="true" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp" />
+                <!-- Name above the line -->
+                <TextView
+                    android:id="@+id/accountHolderName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Zaki Qasim"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
+                    android:layout_marginBottom="8dp"
+                    />
+
+                <!-- Thin horizontal SVG line -->
+                <ImageView
+                    android:id="@+id/horizontalLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_horizontal_line"
+                    android:layout_marginBottom="24dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:id="@+id/accountNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jazzcash Number: 03220000001"
+                    android:textSize="18sp"
+                    android:textStyle="normal"
+                    android:textColor="#000000"
+                    android:layout_marginBottom="8dp"
+                    />
+
+
+                <!-- Upload screenshot button -->
                 <Button
-                    android:id="@+id/signupBtn"
+                    android:id="@+id/uploadScreenshotBtn"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginTop="24dp"
                     android:backgroundTint="#FFA500"
-                    android:text="SIGN IN"
+                    android:text="UPLOAD SCREENSHOT OF PAYMENT"
                     android:textStyle="bold"
                     android:textColor="#000000" />
+
+                <!-- Submit Button -->
+                <Button
+                    android:id="@+id/submitBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="24dp"
+                    android:backgroundTint="#12B76A"
+                    android:text="SUBMIT"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:textSize="16sp"/>
+
+
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
