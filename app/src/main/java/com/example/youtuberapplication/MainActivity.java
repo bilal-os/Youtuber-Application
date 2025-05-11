@@ -53,12 +53,8 @@ public class MainActivity extends AppCompatActivity {
                 ).show();
             }
         });
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(()->{
-            Intent intent = new Intent(this,HomeActivity.class);
-            startActivity(intent);
-            finish();
-        },5000);
+
+
     }
 
     private void splashTextEffect()
