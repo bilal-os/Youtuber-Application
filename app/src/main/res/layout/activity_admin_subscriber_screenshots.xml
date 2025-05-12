@@ -79,7 +79,7 @@
             android:id="@+id/pageTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Payment Screenshots"
+            android:text="Subscriber Screenshots"
             android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="#F2F2F2"
