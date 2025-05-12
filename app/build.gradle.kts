@@ -35,7 +35,7 @@ android {
 dependencies {
 
 
-
+    implementation (libs.firebase.database)
     implementation(platform(libs.firebase.bom))
     implementation(libs.credentials)
     implementation(libs.credentials.play.services.auth)

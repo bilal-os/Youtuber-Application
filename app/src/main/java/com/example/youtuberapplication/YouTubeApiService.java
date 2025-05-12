@@ -1,5 +1,6 @@
 package com.example.youtuberapplication;
 
+import com.example.youtuberapplication.models.ChannelResponse;
 import com.example.youtuberapplication.models.VideoDetailsResponse;
 import com.example.youtuberapplication.models.YouTubeResponse;
 
@@ -22,4 +23,20 @@ public interface YouTubeApiService {
             @Query("id") String videoIds,
             @Query("key") String apiKey
     );
+
+    @GET("channels")
+    Call<ChannelResponse> getChannelDetails(
+            @Query("part") String part,
+            @Query("id") String channelId,
+            @Query("key") String apiKey
+    );
+
+    @GET("search")
+    Call<ChannelResponse> searchChannel(
+            @Query("part") String part,
+            @Query("type") String type,
+            @Query("q") String query,
+            @Query("key") String apiKey
+    );
+
 }

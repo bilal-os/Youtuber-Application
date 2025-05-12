@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="#F5F5F5">
 
     <!-- Fixed Header -->
     <LinearLayout
@@ -16,13 +16,14 @@
         android:paddingBottom="45dp"
         android:gravity="center_vertical"
         android:background="#FFFFFF"
+        android:elevation="4dp"
         android:layout_gravity="top">
 
         <ImageButton
             android:id="@+id/backButton"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:background="@android:color/transparent"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_arrow_back"
             app:tint="#FF7C00" />
 
@@ -37,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="YOUTUBER ACCOUNT"
-                android:textColor="#5F5F5F"
+                android:textColor="#6E6E6E"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:gravity="center" />
@@ -80,55 +81,89 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <!-- Instruction -->
+            <!-- Channel Link Instruction -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Provide your youtube channel’s link:"
-                android:textSize="35sp"
+                android:text="Provide your YouTube channel's link:"
+                android:textSize="20sp"
+                android:textColor="#333333"
                 android:textStyle="normal"
                 android:layout_marginBottom="16dp" />
 
-            <!-- Input -->
+            <!-- Channel Link Input -->
             <EditText
                 android:id="@+id/channelLinkInput"
                 android:layout_width="match_parent"
                 android:layout_height="74dp"
                 android:background="@drawable/outline_button_background_orange"
-                android:hint="YOUTUBE CHANNEL LINK"
+                android:hint="YouTube Channel Link"
                 android:padding="12dp"
                 android:textColor="#000000"
-                android:textColorHint="#BBBBBB" />
+                android:textColorHint="#BBBBBB"
+                android:inputType="textUri" />
 
-            <!-- Submit Button -->
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/submitChannelLink"
+            <!-- Video Link Instruction -->
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="79dp"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/submit_button_background"
-                android:backgroundTint="@null"
-                android:text="SUBMIT"
-                android:textColor="#FBFBFB"
-                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:text="Provide your YouTube video's link:"
                 android:textSize="20sp"
-                android:padding="12dp" />
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="80dp" />
-            <!-- MORE Button -->
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/moreButton"
-                android:layout_width="match_parent"
-                android:layout_height="79dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/more_button_background"
-                android:backgroundTint="@null"
-                android:text="MORE"
-                android:textColor="#F2F2F2"
+                android:textColor="#333333"
                 android:textStyle="normal"
-                android:textSize="20sp"
-                android:padding="12dp" />
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Video Link Input -->
+            <EditText
+                android:id="@+id/videoLinkInput"
+                android:layout_width="match_parent"
+                android:layout_height="74dp"
+                android:background="@drawable/outline_button_background_orange"
+                android:hint="YouTube Video Link"
+                android:padding="12dp"
+                android:textColor="#000000"
+                android:textColorHint="#BBBBBB"
+                android:inputType="textUri" />
+
+            <!-- Submit and Cancel Buttons Container -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:weightSum="2">
+
+                <!-- Cancel Button -->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/cancelButton"
+                    android:layout_width="0dp"
+                    android:layout_height="59dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:background="#F5F5F5"
+                    android:text="CANCEL"
+                    android:textColor="#FF7C00"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:padding="12dp" />
+
+                <!-- Submit Button -->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/submitChannelLink"
+                    android:layout_width="0dp"
+                    android:layout_height="59dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/submit_button_background"
+                    android:backgroundTint="@null"
+                    android:text="SUBMIT"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:padding="12dp" />
+            </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -142,5 +177,6 @@
         app:itemIconTint="@null"
         app:itemTextColor="@null"
         android:background="#FFFFFF"
+        android:elevation="8dp"
         app:labelVisibilityMode="labeled" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

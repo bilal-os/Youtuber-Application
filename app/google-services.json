@@ -1,26 +1,44 @@
 {
   "project_info": {
-    "project_number": "240825793621",
-    "project_id": "rs-application-63ceb",
-    "storage_bucket": "rs-application-63ceb.firebasestorage.app"
+    "project_number": "330474295363",
+    "project_id": "youtubers-application",
+    "storage_bucket": "youtubers-application.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:240825793621:android:38e3938de6e6e170dc68dc",
+        "mobilesdk_app_id": "1:330474295363:android:ff8aaf3cbceb37d90144f6",
         "android_client_info": {
           "package_name": "com.example.youtuberapplication"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "330474295363-l2kro4e0aeuri946n03il28oo0r2rg5i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.youtuberapplication",
+            "certificate_hash": "344ba68c6f415f91ac9e9bb489e231c4f52bb62f"
+          }
+        },
+        {
+          "client_id": "330474295363-1qct26bjteltrdqbuq2jlnh1v1ui794g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyC-JMlI5zwWOQuOMRTjwhhPYYqLT6nJ8DY"
+          "current_key": "AIzaSyDKhYIlYQX_IV5MSldN1M4PwMK5O5W7Wbs"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "330474295363-1qct26bjteltrdqbuq2jlnh1v1ui794g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

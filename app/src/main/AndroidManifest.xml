@@ -21,7 +21,13 @@
         <activity
             android:name=".HomeActivity"
             android:exported="false" />
-        <!--<activity
+
+        <activity
+            android:name=".YoutuberLinksActivity"
+            android:exported="false" >
+
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -29,15 +35,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>-->
+        </activity>
+        <activity android:name=".PackagesActivity"
+            android:exported="false">
 
-        <activity
-            android:name=".YoutuberLinksActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
+        <activity android:name=".AddChannelActivity"
+            android:exported="false">
+
         </activity>
 
 

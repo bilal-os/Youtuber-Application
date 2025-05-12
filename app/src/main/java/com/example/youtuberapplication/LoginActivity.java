@@ -1,6 +1,7 @@
 package com.example.youtuberapplication;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -30,10 +31,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executor;
 public class LoginActivity extends AppCompatActivity {
 
@@ -151,9 +157,10 @@ public class LoginActivity extends AppCompatActivity {
                         .show();
 
                 //  Send the ID token to your backend to verify & create a session
-             //   validateTokenWithBackend(idToken);
+               validateTokenWithBackend(idToken);
 
-                Toast.makeText(this, "Token received: " + idToken, Toast.LENGTH_LONG).show();
+                createUserSchema();
+               navigateToPackages();
 
             } else {
                 Log.e(TAG, "Unknown custom credential type: " + cc.getType());
@@ -181,16 +188,50 @@ public class LoginActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     // Sign in success
                     Log.d(TAG, "signInWithCredential:success");
-                    Toast.makeText(this,TAG + "signInWithCredential:success",Toast.LENGTH_LONG).show();
                 } else {
                     // Sign in fails
                     Log.w(TAG, "signInWithCredential:failure", task.getException());
-                    Toast.makeText(this,TAG + "signInWithCredential:failure",Toast.LENGTH_LONG).show();
                 }
             });
 
     }
 
+    private void createUserSchema() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser == null) {
+            Log.e("Firebase", "No authenticated user found.");
+            return;
+        }
+
+        // Use the correct database URL here
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://youtubers-application-default-rtdb.firebaseio.com/");
+        DatabaseReference usersRef = database.getReference("users");
+
+        // Creating a new user
+        Map<String, Object> user = new HashMap<>();
+        user.put("email", currentUser.getEmail());
+        user.put("name", currentUser.getDisplayName());
+        user.put("youtubeChannelLink", ""); // Empty initially, to be filled later
+
+
+
+        // Add the video to the user's videos map
+        Map<String, Object> videos = new HashMap<>();
+
+
+        // Add videos to the user
+        user.put("videos", videos);
+
+        // Use the user's UID as the key to ensure uniqueness and consistency
+        String userId = currentUser.getUid();
+        usersRef.child(userId).setValue(user).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Log.d("Firebase", "User created successfully!");
+            } else {
+                Log.e("Firebase", "Failed to create user: " + task.getException().getMessage());
+            }
+        });
+    }
     private void handleFailure(GetCredentialException e) {
         Log.e(TAG, "Credential fetch failed: " + e.getMessage(), e);
         if (e instanceof GetCredentialCancellationException) {
@@ -209,15 +250,12 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    private void navigateToPackages()
+    {
 
-
-    // You may want to add methods for navigating to other activities
-    /*
-    private void navigateToMainActivity() {
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        Intent intent = new Intent(LoginActivity.this,PackagesActivity.class);
         startActivity(intent);
-        finish(); // Close the login activity
+        finish();
     }
-    */
 
 }
