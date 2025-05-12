@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <!-- Fixed Header -->
+    <LinearLayout
+        android:id="@+id/fixedHeader"
+        android:layout_width="match_parent"
+        android:layout_height="162dp"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="45dp"
+        android:gravity="center_vertical"
+        android:background="#FFFFFF"
+        android:layout_gravity="top">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="#FF7C00" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="YOUTUBER ACCOUNT"
+                android:textColor="#5F5F5F"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:gravity="center" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="14dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bilal Mahmud"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/profileIcon"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_person" />
+    </LinearLayout>
+
+    <!-- Scrollable content below fixed header -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="162dp"
+        android:layout_marginBottom="80dp"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Instruction -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Video Link:"
+                android:textSize="35sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Input -->
+            <EditText
+                android:id="@+id/channelLinkInput"
+                android:layout_width="match_parent"
+                android:layout_height="74dp"
+                android:background="@drawable/outline_button_background_orange"
+                android:hint="YOUTUBE CHANNEL LINK"
+                android:padding="12dp"
+                android:textColor="#000000"
+                android:textColorHint="#BBBBBB" />
+
+            <!-- Submit Button -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/submitChannelLink"
+                android:layout_width="match_parent"
+                android:layout_height="79dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/submit_button_background"
+                android:backgroundTint="@null"
+                android:text="SUBMIT"
+                android:textColor="#FBFBFB"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:padding="12dp" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="80dp" />
+            <!-- MORE Button -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/moreButton"
+                android:layout_width="match_parent"
+                android:layout_height="79dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/more_button_background"
+                android:backgroundTint="@null"
+                android:text="MORE"
+                android:textColor="#F2F2F2"
+                android:textStyle="normal"
+                android:textSize="20sp"
+                android:padding="12dp" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Bottom Navigation Bar -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:menu="@menu/bottom_nav_menu"
+        app:itemIconTint="@null"
+        app:itemTextColor="@null"
+        android:background="#FFFFFF"
+        app:labelVisibilityMode="labeled" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

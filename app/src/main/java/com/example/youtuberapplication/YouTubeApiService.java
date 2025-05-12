@@ -1,7 +1,7 @@
 package com.example.youtuberapplication;
 
-import com.example.youtuberapplication.Models.VideoDetailsResponse;
-import com.example.youtuberapplication.Models.YouTubeResponse;
+import com.example.youtuberapplication.models.VideoDetailsResponse;
+import com.example.youtuberapplication.models.YouTubeResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

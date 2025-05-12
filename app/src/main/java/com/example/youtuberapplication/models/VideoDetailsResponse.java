@@ -1,7 +1,7 @@
-package com.example.youtuberapplication.Models;
+package com.example.youtuberapplication.models;
 
 import java.util.List;
-import com.example.youtuberapplication.Models.YouTubeResponse.Snippet;
+import com.example.youtuberapplication.models.YouTubeResponse.Snippet;
 public class VideoDetailsResponse {
     private List<VideoItem> items;
 
