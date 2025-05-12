@@ -18,7 +18,7 @@
         android:background="#FFFFFF"
         android:elevation="4dp"
         android:layout_gravity="top"
-        android:z="10">
+        >
 
         <ImageButton
             android:id="@+id/backButton"
@@ -178,7 +178,7 @@
 
                 <!-- RecyclerView List -->
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/subscriberRecyclerView"
+                    android:id="@+id/paymentRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
