@@ -13,9 +13,11 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.credentials.*;
 import android.os.CancellationSignal;
 
+import androidx.credentials.exceptions.GetCredentialCancellationException;
 import androidx.credentials.exceptions.GetCredentialException;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -26,6 +28,7 @@ import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingExcept
 // For example, if using Firebase Auth, you'd import Firebase authentication components
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 
@@ -43,6 +46,20 @@ public class LoginActivity extends AppCompatActivity {
     CancellationSignal cancelSignal;
     Executor mainExecutor;
 
+    private FirebaseAuth mAuth;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if(currentUser!=null)
+        {
+            Toast.makeText(this,"User is currently signed in " + currentUser.getDisplayName(),Toast.LENGTH_LONG).show();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +71,8 @@ public class LoginActivity extends AppCompatActivity {
             return insets;
         });
 
+        mAuth = FirebaseAuth.getInstance();
+
         cancelSignal = new CancellationSignal();
         mainExecutor = ContextCompat.getMainExecutor(this);
 
@@ -63,9 +82,8 @@ public class LoginActivity extends AppCompatActivity {
         // Set up the Google Id Option
         googleIdOption = new GetGoogleIdOption.Builder()
                 .setFilterByAuthorizedAccounts(false) // Check for previously authorized accounts
-                .setServerClientId("437955746032-j0237e9vi3acvvpsnjkctd4o9odm9eu6.apps.googleusercontent.com") // Your Web Client ID
+                .setServerClientId("330474295363-bt5vkvps7vkl535g4nus84a3b9cqrr60.apps.googleusercontent.com") // Web Client ID
                 .setAutoSelectEnabled(false) // Automatically selects the best account if available
-                .setNonce(generateNonce(16)) // Add nonce for extra security
                 .build();
 
         // Build the request
@@ -94,7 +112,11 @@ public class LoginActivity extends AppCompatActivity {
                 /* callback */          new CredentialManagerCallback<GetCredentialResponse, GetCredentialException>() {
                     @Override
                     public void onResult(GetCredentialResponse response) {
-                        handleSignIn(response);
+                        try {
+                            handleSignIn(response);
+                        } catch (GoogleIdTokenParsingException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     @Override
                     public void onError(GetCredentialException e) {
@@ -105,133 +127,89 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void handleSignIn(GetCredentialResponse result) {
-        @SuppressLint({"NewApi", "LocalSuppress"}) Object credential = result.getCredential();
+    private void handleSignIn(GetCredentialResponse result) throws GoogleIdTokenParsingException {
+        Object credential = result.getCredential();
+        Log.e(TAG,"In handleSignIn");
+        // We expect only a CustomCredential here (Google ID Token)
+        if (credential instanceof CustomCredential) {
+            CustomCredential cc = (CustomCredential) credential;
 
-        // Handle different credential types
-        if (credential instanceof PublicKeyCredential) {
-            // Passkey credential
-            PublicKeyCredential publicKeyCredential = (PublicKeyCredential) credential;
-            // Share responseJson with your server to validate and authenticate
-            String authResponseJson = publicKeyCredential.getAuthenticationResponseJson();
-            Log.d(TAG, "Public key credential received");
-            // TODO: Send this responseJson to your server
+            // Check it's really a Google ID token
+            if (GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
+                    .equals(cc.getType())) {
+                GoogleIdTokenCredential tokenCred =
+                        GoogleIdTokenCredential.createFrom(cc.getData());
 
-        } else if (credential instanceof PasswordCredential) {
-            // Password credential
-            PasswordCredential passwordCredential = (PasswordCredential) credential;
-            // Send ID and password to your server to validate and authenticate
-            String username = passwordCredential.getId();
-            String password = passwordCredential.getPassword();
-            Log.d(TAG, "Password credential received for user: " + username);
-            // TODO: Send these credentials to your server
+                String idToken = tokenCred.getIdToken();
+                String displayName = tokenCred.getDisplayName();
+                String email       = tokenCred.getId();
 
-        } else if (credential instanceof CustomCredential) {
-            // Google ID Token credential
-            CustomCredential customCredential = (CustomCredential) credential;
+                Log.d(TAG, "Signed in as " + displayName + " (" + email + ")");
+                Toast.makeText(this,
+                                "Welcome, " + displayName,
+                                Toast.LENGTH_SHORT)
+                        .show();
 
-            if (customCredential.getType().equals(GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL)) {
-                // Extract the Google ID Token
-                GoogleIdTokenCredential googleIdTokenCredential =
-                        GoogleIdTokenCredential.createFrom(customCredential.getData());
+                //  Send the ID token to your backend to verify & create a session
+             //   validateTokenWithBackend(idToken);
 
-                // Get the ID token to send to your backend
-                String idTokenString = googleIdTokenCredential.getIdToken();
-                Log.d(TAG, "Google ID Token retrieved successfully");
-
-                // For UX purposes only, you can extract user information directly
-                String displayName = googleIdTokenCredential.getDisplayName();
-                String email = googleIdTokenCredential.getId(); // The email
-
-                Log.d(TAG, "Display Name: " + displayName);
-                Log.d(TAG, "Email: " + email);
-
-                // Send token to your backend for validation
-                validateTokenWithBackend(idTokenString);
-
-                // Note: Don't store or control access to user data based on these
-                // values without validating the token first
+                Toast.makeText(this, "Token received: " + idToken, Toast.LENGTH_LONG).show();
 
             } else {
-                // Catch any unrecognized custom credential type
-                Log.e(TAG, "Unexpected type of custom credential: " + customCredential.getType());
+                Log.e(TAG, "Unknown custom credential type: " + cc.getType());
+                Toast.makeText(this,
+                                "Sign-in failed: unexpected credential",
+                                Toast.LENGTH_LONG)
+                        .show();
             }
+
         } else {
-            // Catch any unrecognized credential type
-            Log.e(TAG, "Unexpected type of credential");
+
+            Log.e(TAG, "Unexpected credential type: " + credential.getClass());
+            Toast.makeText(this,
+                            "Sign-in failed: bad credential",
+                            Toast.LENGTH_LONG)
+                    .show();
         }
     }
 
     private void validateTokenWithBackend(String idToken) {
-        // Option 1: Send the token to your backend server for validation
-        // This is the recommended approach for production applications
-        //
-        // Example with Retrofit:
-        /*
-        apiService.verifyGoogleToken(idToken).enqueue(new Callback<AuthResponse>() {
-            @Override
-            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    // Save authentication state and user info
-                    saveUserSession(response.body().getUser());
-                    // Navigate to main screen
-                    navigateToMainActivity();
-                } else {
-                    Log.e(TAG, "Server validation failed");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AuthResponse> call, Throwable t) {
-                Log.e(TAG, "Network error during token validation", t);
-            }
-        });
-        */
-
-        // Option 2: If using Firebase Authentication (client-side validation example)
-        // Not recommended for production without additional server validation
-        /*
+        // Using Firebase Authentication
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        FirebaseAuth.getInstance().signInWithCredential(credential)
+        mAuth.signInWithCredential(credential)
             .addOnCompleteListener(this, task -> {
                 if (task.isSuccessful()) {
                     // Sign in success
                     Log.d(TAG, "signInWithCredential:success");
-                    // Navigate to main screen
-                    navigateToMainActivity();
+                    Toast.makeText(this,TAG + "signInWithCredential:success",Toast.LENGTH_LONG).show();
                 } else {
                     // Sign in fails
                     Log.w(TAG, "signInWithCredential:failure", task.getException());
+                    Toast.makeText(this,TAG + "signInWithCredential:failure",Toast.LENGTH_LONG).show();
                 }
             });
-        */
 
-        // For testing purposes only:
-        Log.d(TAG, "Token validation would happen here in production");
-        // In a real app, don't proceed until token is validated
     }
 
     private void handleFailure(GetCredentialException e) {
-        // Log the failure for debugging
-        Log.e(TAG, "Credential fetch failed", e);
-
-        // You can provide more specific error handling based on the exception type
-        // For example:
-        if (e.getMessage() != null) {
-            if (e.getMessage().contains("canceled")) {
-                Log.w(TAG, "User canceled the sign-in flow");
-                // Maybe show a toast: "Sign-in canceled"
-            } else if (e.getMessage().contains("network")) {
+        Log.e(TAG, "Credential fetch failed: " + e.getMessage(), e);
+        if (e instanceof GetCredentialCancellationException) {
+            Log.w(TAG, "User canceled the sign-in flow");
+            Toast.makeText(this, "Sign-in canceled", Toast.LENGTH_SHORT).show();
+        } else if (e.getMessage() != null) {
+            if (e.getMessage().contains("network")) {
                 Log.w(TAG, "Network error during sign-in");
-                // Maybe show a dialog: "Check your internet connection"
+                Toast.makeText(this, "Network error. Please try again.", Toast.LENGTH_SHORT).show();
+            } else {
+                Log.w(TAG, "Unknown error occurred: " + e.getMessage());
+                Toast.makeText(this, "An error occurred: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
+        } else {
+            Toast.makeText(this, "An unexpected error occurred.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public String generateNonce(int length) {
-        SecureRandom random = new SecureRandom();
-        return new BigInteger(length * 5, random).toString(32).substring(0, length);
-    }
+
 
     // You may want to add methods for navigating to other activities
     /*

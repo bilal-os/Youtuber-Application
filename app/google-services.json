@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "240825793621",
+    "project_id": "rs-application-63ceb",
+    "storage_bucket": "rs-application-63ceb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:240825793621:android:38e3938de6e6e170dc68dc",
+        "android_client_info": {
+          "package_name": "com.example.youtuberapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-JMlI5zwWOQuOMRTjwhhPYYqLT6nJ8DY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
