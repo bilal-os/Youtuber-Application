@@ -19,7 +19,7 @@ public class CongratulationsDialog extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_congratulations, container, false);
+        View view = inflater.inflate(R.layout.item_dialog_congratulations, container, false);
         TextView nameText = view.findViewById(R.id.userNameText);
         nameText.setText(userName);
 

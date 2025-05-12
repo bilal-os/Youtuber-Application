@@ -79,7 +79,7 @@
             android:id="@+id/pageTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Subscriber Screenshots"
+            android:text="Users"
             android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="#F2F2F2"
@@ -113,7 +113,6 @@
                     android:gravity="center_vertical"
                     android:background="#272A32">
 
-                    <!-- NEW checkbox -->
                     <LinearLayout
                         android:id="@+id/checkbox_new_container"
                         android:layout_width="wrap_content"
@@ -124,56 +123,18 @@
                         android:clickable="true"
                         android:focusable="true">
 
-                        <ImageView
-                            android:id="@+id/checkbox_new_icon"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_checkbox_checked" />
 
                         <TextView
                             android:id="@+id/checkbox_new_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="NEW"
+                            android:text="EMAIL"
                             android:textColor="#FFFFFF"
                             android:textSize="14sp"
                             android:layout_marginStart="6dp"
                             android:textStyle="bold"/>
                     </LinearLayout>
 
-                    <Space
-                        android:layout_width="24dp"
-                        android:layout_height="0dp" />
-
-                    <!-- VIEWED checkbox -->
-                    <LinearLayout
-                        android:id="@+id/checkbox_viewed_container"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:padding="8dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:layout_marginStart="24dp">
-
-                        <ImageView
-                            android:id="@+id/checkbox_viewed_icon"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_checkbox_unchecked" />
-
-                        <TextView
-                            android:id="@+id/checkbox_viewed_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="VIEWED"
-                            android:textColor="#FFFFFF"
-                            android:textSize="14sp"
-                            android:layout_marginStart="6dp"
-                            android:textStyle="bold"
-                            />
-                    </LinearLayout>
                 </LinearLayout>
 
                 <!-- RecyclerView List -->
